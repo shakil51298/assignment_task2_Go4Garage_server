@@ -8,7 +8,7 @@ require('dotenv').config()
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bptoi.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majorit`;
 const app = express()
-const port = process.env.PORT 
+const port = 5000 || process.env.PORT
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -63,6 +63,7 @@ client.connect(err => {
     app.get('/vendor/list', (req, res) => {
         productsCollection.find().toArray((err, producDocs) => {
             res.send(producDocs)
+            console.log(producDocs);
         })
     })
 });
