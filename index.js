@@ -35,6 +35,22 @@ client.connect(err => {
                 res.send(userDocs)
             })
     })
+    // get total coustomer
+    app.get('/user/customer', (req, res) => {
+        usersCollection.find({ userType: "Customer"})
+            .toArray((err, userDocs) => {
+                res.send(userDocs)
+                console.log(userDocs);
+            })
+    })
+    // get total Shopkeeper
+    app.get('/user/shopkeeper', (req, res) => {
+        usersCollection.find({ userType: "Shopkeeper"})
+            .toArray((err, userDocs) => {
+                res.send(userDocs)
+                console.log(userDocs);
+            })
+    })
     // insert to database products info
     app.post('/Addvendor/list', (req, res) => {
         const productsInfo = req.body;
