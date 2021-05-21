@@ -16,36 +16,36 @@ app.use(bodyParser.json());
 // mongo
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-    const CoustomersCollection = client.db("intern_coustomer").collection("coustomers");
+    const usersCollection = client.db("intern_coustomer").collection("coustomers");
     const productsCollection = client.db("internProduct").collection("products");
     // insert to database users info
-    app.post('/user/login', (req , res) => {
+    app.post('/user/login', (req, res) => {
         const userInfo = req.body;
-        CoustomersCollection.insertOne(userInfo)
-        .then(result => {
-            res.send(result.insertedCount > 0 )
-        })
+        usersCollection.insertOne(userInfo)
+            .then(result => {
+                res.send(result.insertedCount > 0)
+            })
     })
     // find the specific user
-    app.post('/user' , (req , res)=> {
+    app.post('/user', (req, res) => {
         const userName = req.body.userInfo.User_name;
         const userPassword = req.body.userInfo.password;
-        CoustomersCollection.find({userName : userName , userPass : userPassword})
-        .toArray((err , userDocs)=> {
-            res.send(userDocs)
-        })
+        usersCollection.find({ userName: userName, userPass: userPassword })
+            .toArray((err, userDocs) => {
+                res.send(userDocs)
+            })
     })
     // insert to database products info
-    app.post('/Addvendor/list' , (req , res)=> {
-        const productsInfo =  req.body;
+    app.post('/Addvendor/list', (req, res) => {
+        const productsInfo = req.body;
         productsCollection.insertMany(productsInfo)
-        .then (proData => {
-            res.send(proData)
-        })
+            .then(proData => {
+                res.send(proData)
+            })
     })
     //  get product
-    app.get('/vendor/list' , (req , res)=> {
-        productsCollection.find().toArray((err , producDocs) =>{
+    app.get('/vendor/list', (req, res) => {
+        productsCollection.find().toArray((err, producDocs) => {
             res.send(producDocs)
         })
     })
