@@ -3,12 +3,12 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+require('dotenv').config()
 
 
-
-const uri = "mongodb+srv://shakil51298:Webdeveloper21mongo@cluster0.bptoi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bptoi.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majorit`;
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000 
 
 app.use(cors())
 app.use(bodyParser.json());
